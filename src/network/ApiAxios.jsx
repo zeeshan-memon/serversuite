@@ -72,7 +72,7 @@ export const login = async (email, password, domain) =>
   await instance.post("adlogin", { email, password, domain });
 
 export const logout = async (token) =>
-  await instance.post("users/logout", { token });
+  await instance.post("logout", { token });
 
 export const getInstaces = async (path, body) =>
   await instance.post(`/${path}/listInstances`, body);

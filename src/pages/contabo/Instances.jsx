@@ -4,8 +4,6 @@ import context from "../../context/Context";
 import styled from "styled-components";
 import Actions from "./Actions";
 import { getInstaces } from "../../network/ApiAxios";
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 const MainContainer = styled.div`
   height: 90%;
   width: 100%;
@@ -13,26 +11,10 @@ const MainContainer = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  justify-items: center;
+  /* justify-items: center; */
   justify-content: space-between;
+  padding-bottom: 10px;
 `
-
-const UsersContainer = styled.div`
-background-color: aqua;
-  display: flex;
-  /* flex-direction: column; */
-  justify-content: center;
-  justify-items: center;
-  padding: 10px;
-`
-const UserName = styled.div`
-align-self: center;
-`
-const Logo = styled.div`
-  align-self: center;
-
-`
-
 const Title = styled.h2`
   padding-left: 10px;
   padding-bottom: 5px;
@@ -92,12 +74,7 @@ const Instances = () => {
     <MainContainer>
       <Wrapper>
           <Title>Instances</Title>
-          <UsersContainer>
-            <Logo>
-            <AccountCircleIcon/>
-            </Logo>
-            <UserName>abc@gmail.com</UserName>
-            </UsersContainer>
+          
       </Wrapper>
       {data && (
         <DataGrid

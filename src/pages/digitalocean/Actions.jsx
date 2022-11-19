@@ -14,7 +14,7 @@ const Menu = styled.div`
   display: flex;
   flex-direction: column;
   /* background: #ffffff; */
-  background: rgb(0, 7, 61);
+  /* background: rgb(0, 7, 61); */
   color: white;
 `;
 const MenuIitem= styled.div`
@@ -99,18 +99,18 @@ const Actions = ({ params, rowId, setRowId }) => {
         closeOnDocumentClick
         // mouseLeaveDelay={300}
         mouseEnterDelay={0}
-        contentStyle={{ padding: "0px", border: "none" }}
+        contentStyle={{ padding: "0px", border: "none", backgroundColor:"#00073D" }}
         arrow={false}
         open= {isOpen}
         onOpen = {()=>setIsOpen(true)}
       >
         <Menu>
-          <MenuIitem onClick={()=> contextValue.showConfirmAlert(getSnapshots)}>View Snapshots</MenuIitem>
-          <MenuIitem onClick={()=> contextValue.showConfirmAlert(createSnapshotCall)}>Create Snapshot</MenuIitem>
-          <MenuIitem onClick={()=> contextValue.showConfirmAlert(startInstanceCall)}>Start</MenuIitem>
-          <MenuIitem onClick={()=> contextValue.showConfirmAlert(restartInstanceCall)}> Restart</MenuIitem>
-          <MenuIitem onClick={()=> contextValue.showConfirmAlert(stopInstanceCall)}>Stop</MenuIitem>
-        </Menu>
+          <MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, getSnapshots)}>View Snapshots</MenuIitem>
+          <MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, createSnapshotCall)}>Create Snapshot</MenuIitem>
+          <MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, startInstanceCall)}>Start</MenuIitem>
+          <MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, restartInstanceCall)}> Restart</MenuIitem>
+          <MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, stopInstanceCall)}>Stop</MenuIitem>
+        </Menu>setIsOpen, 
       </Popup>
     </MainContaoiner>
   );

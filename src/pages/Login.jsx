@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect, useContext } from "react";
-// import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import loadingContext from "../context/Context";
 import { getDomain, login } from "../network/ApiAxios";
 
@@ -63,11 +63,12 @@ const Option = styled.option``;
 
 const Login = () => {
   const context = useContext(loadingContext);
-  //    const navigate =useNavigate()
+     const navigate =useNavigate();
+     const location = useLocation()
   useEffect(() => {
     getDomains();
   }, []);
-  const host = "http://localhost:5000";
+  
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -80,7 +81,6 @@ const Login = () => {
   };
 
   const submitHandler = async (e) => {
-    // const navigate= useNavigate();
     e.preventDefault();
     context.setIsLoading(true);
     const data = await login(credentials.email, credentials.password, credentials.domain)
@@ -88,7 +88,10 @@ const Login = () => {
     console.log(data)
     if (data.status) {
       // console.log(data.response.token);
-      localStorage.setItem("token", data.response.token);
+      if(location.state?.form){
+        localStorage.setItem("token", data.response.token);
+        navigate(location.state.form)
+      }
       // navigate('/contabo/instances')
     } else {
       context.showToast("error", data.error);

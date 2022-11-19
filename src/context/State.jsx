@@ -27,7 +27,8 @@ const LoadingState = (props) => {
     }
   };
 
-  const showConfirmAlert = (apiCall) => {
+  const showConfirmAlert = (setIsOpen, apiCall) => {
+    setIsOpen(false);
     confirmAlert({
       title: 'Confirm to submit',
       message: 'Are you sure to do this.',
