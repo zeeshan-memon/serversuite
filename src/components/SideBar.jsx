@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import { FaBars } from "react-icons/fa";
@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import SideBarMenu from "./SideBarMenu";
 import { routes } from "./SidebarData";
 import ProfileMenu from "./ProfileMenu";
+import context from "../context/Context";
 
 const Wrapper = styled.div`
   display: flex;
@@ -35,14 +36,15 @@ const UserProfileWrapper = styled.div`
   padding-right: 5px;
 `;
 
-const UserName = styled.div`
-  display: flex;
-  justify-content: center;
-  justify-items: center;
-  color: #000000;
-  font-size: 16px;
-  padding-right: 3px;
-`;
+// const UserName = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   justify-items: center;
+//   color: #000000;
+//   font-size: 16px;
+//   padding-right: 3px;
+// `;
+
 const UserLogo = styled.div`
   display: flex;
   justify-content: center;
@@ -111,28 +113,28 @@ const NavLinkContainer = styled(NavLink)`
   }
 `;
 
-const LogOut = styled.div`
-  padding-right: 10px;
-  padding-bottom: 30px;
-  margin: 5px;
-`;
+// const LogOut = styled.div`
+//   padding-right: 10px;
+//   padding-bottom: 30px;
+//   margin: 5px;
+// `;
 
-const LogOutButton = styled.button`
-  color: #070707;
-  width: 100%;
-  /* background-color: #8da3a1; */
-  font-size: 16px;
-  width: 100%;
-  padding: 8px;
-  border-radius: 10px;
+// const LogOutButton = styled.button`
+//   color: #070707;
+//   width: 100%;
+//   /* background-color: #8da3a1; */
+//   font-size: 16px;
+//   width: 100%;
+//   padding: 8px;
+//   border-radius: 10px;
 
-  cursor: pointer;
-  &:hover {
-    /* background-color: rgb(75, 76, 82); */
-    background: rgb(142, 145, 167);
-    color: white;
-  }
-`;
+//   cursor: pointer;
+//   &:hover {
+//     /* background-color: rgb(75, 76, 82); */
+//     background: rgb(142, 145, 167);
+//     color: white;
+//   }
+// `;
 
 const showAnimation = {
   hidden: {
@@ -155,9 +157,10 @@ const showAnimation = {
 const SideBar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
+    const {isLoggedIn} = useContext(context)
   return (
     <Wrapper>
-            <UserProfile>
+        {isLoggedIn && <UserProfile>
         <UserProfileWrapper>
           {/* <UserName>abc@gmail.com</UserName> */}
           <UserLogo>
@@ -165,6 +168,7 @@ const SideBar = ({ children }) => {
           </UserLogo>
         </UserProfileWrapper>
       </UserProfile>
+        }
       <MainContainer>
         <MotionDiv
           animate={{
@@ -226,9 +230,9 @@ const SideBar = ({ children }) => {
               })}
             </Section>
           </div>
-          <LogOut>
+          {/* <LogOut>
             <LogOutButton>LogOut</LogOutButton>
-          </LogOut>
+          </LogOut> */}
         </MotionDiv>
         <Main>{children}</Main>
       </MainContainer>

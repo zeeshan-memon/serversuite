@@ -1,10 +1,6 @@
 import "./App.css";
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ContaboInstances from "./pages/contabo/Instances";
 import AWS from "./pages/aws/Instances";
 import AliCloud from "./pages/alicloud/Instances";
@@ -13,10 +9,11 @@ import DigitalOcean from "./pages/digitalocean/Instances";
 import SideBar from "./components/SideBar";
 import styled from "styled-components";
 import Login from "./pages/Login";
-import LoadingState from "./context/State";
+import State from "./context/State";
 import Loader from "./components/Loader";
 import Toast from "./components/Toast";
 import ProtectedRoutes from "./ProtectedRoutes";
+import Redirect from "./pages/Redirect";
 const MainContainer = styled.div`
   margin: 0;
   padding: 0;
@@ -32,27 +29,27 @@ const MainContainer = styled.div`
 
 const App = () => {
   return (
-    <LoadingState>
+    <State>
       <MainContainer>
         <Loader />
-        <Toast/>
+        <Toast />
         <Router>
           <SideBar>
-        <Routes>
-            <Route path="/" element={<Login />} />
-            <Route element={<ProtectedRoutes/>}>
-            <Route path="/contabo" element={<ContaboInstances />} />
-            {/* <Route path="/contabo/screenshots" element={<ContaboScreenshots />} /> */}
-            <Route path="/aws" element={<AWS />} />
-            <Route path="/alicloud" element={<AliCloud />} />
-            <Route path="/vultr" element={<Vultr />} />
-            <Route path="/digitalocean" element={<DigitalOcean />} />
-         </Route>
-        </Routes>
+            <Routes>
+            <Route path="/login" element={<Login />} />
+              <Route element={<ProtectedRoutes />}>
+                <Route path="/contabo" element={<ContaboInstances />} />
+                <Route path="/aws" element={<AWS />} />
+                <Route path="/alicloud" element={<AliCloud />} />
+                <Route path="/vultr" element={<Vultr />} />
+                <Route path="/digitalocean" element={<DigitalOcean />} />
+                <Route path="*" element={<Redirect/>} />
+              </Route>
+            </Routes>
           </SideBar>
-      </Router>
+        </Router>
       </MainContainer>
-    </LoadingState>
+    </State>
   );
 };
 

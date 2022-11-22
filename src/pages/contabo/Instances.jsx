@@ -4,6 +4,7 @@ import context from "../../context/Context";
 import styled from "styled-components";
 import Actions from "./Actions";
 import { getInstaces } from "../../network/ApiAxios";
+
 const MainContainer = styled.div`
   height: 90%;
   width: 100%;
@@ -24,7 +25,7 @@ const Title = styled.h2`
 const Instances = () => {
   const contextValue = useContext(context);
   const [data, setData] = useState([]);
-  const [pageState, setPageState] = useState({size:5, page:1, totalCount:0});
+  const [pageState, setPageState] = useState({size:10, page:1, totalCount:0});
   const [rowId, setRowId] = useState(null);
 
   useEffect(() => {
@@ -82,7 +83,7 @@ const Instances = () => {
           rowCount={pageState.totalCount}
           columns={columns}
           getRowId={(row) => row.instanceId}
-          rowsPerPageOptions={[5, 10, 20, 30]}
+          rowsPerPageOptions={[10, 20, 30]}
           pageSize={pageState.size}
           onPageSizeChange={(newPageSize) =>setPageState(old=>({...old, size: newPageSize}))}
           page={pageState.page - 1}

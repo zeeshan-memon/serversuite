@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Outlet, Navigate, useLocation } from "react-router-dom";
+import context from "./context/Context";
+
 const useAuth = () => {
-    const user = localStorage.getItem("token")?true:false
-    return user;
-  };
+  const { isLoggedIn, setIsLoggedIn } = useContext(context);
+  if (localStorage.getItem("token") && !isLoggedIn) setIsLoggedIn(true);
+    return localStorage.getItem("token");
+};
 const ProtectedRoutes = () => {
-    const location =  useLocation();
-    const isAuth = useAuth();
-    return isAuth ? (<Outlet/>) : (<Navigate to="/" replace={true} state={{from:location}}/>)
+  const isAuth = useAuth();
+  const location = useLocation();
+  return isAuth ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/login" replace state={{ from: location }} />
+  );
 };
 
 export default ProtectedRoutes;
-

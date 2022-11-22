@@ -34,15 +34,14 @@ const MenuIitem= styled.div`
 const ProfileMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
     const contextValue = useContext(context)
-
   const logoutCall = async ()=> {
     setIsOpen(false);
     contextValue.setIsLoading(true);
     const res = await logout();
     contextValue.setIsLoading(false);
-    console.log(res);
     if (res.status) {
       localStorage.clear();
+      contextValue.setIsLoggedIn( false);
     } else {
       contextValue.showToast("error", res.error);
     }
@@ -52,7 +51,7 @@ const ProfileMenu = () => {
     <MainContaoiner>
     {/* <ListIcon /> */}
     <Popup
-       trigger={<AccountCircleRoundedIcon style={{"font-size":"35px"}}/>}
+       trigger={<AccountCircleRoundedIcon style={{"fontSize":"35px"}}/>}
       position="bottom right"
       // on="hover"
       closeOnDocumentClick

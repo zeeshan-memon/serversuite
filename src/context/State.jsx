@@ -7,6 +7,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 const LoadingState = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isToast, setIsToast] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const showToast = (type, message) => {
     const toastConfigs = {
@@ -50,7 +51,7 @@ const LoadingState = (props) => {
   
   return (
     <Context.Provider
-      value={{ isLoading, setIsLoading, isToast, setIsToast, showToast, showConfirmAlert }}
+      value={{ isLoading, setIsLoading, isToast, setIsToast, showToast, showConfirmAlert, isLoggedIn, setIsLoggedIn }}
     >
       {props.children}
     </Context.Provider>

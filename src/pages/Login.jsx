@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
-import loadingContext from "../context/Context";
+import context from "../context/Context";
 import { getDomain, login } from "../network/ApiAxios";
 
 const Container = styled.div`
@@ -62,12 +62,15 @@ const Select = styled.select`
 const Option = styled.option``;
 
 const Login = () => {
-  const context = useContext(loadingContext);
+  const contextValue = useContext(context);
      const navigate =useNavigate();
      const location = useLocation()
   useEffect(() => {
+   if(localStorage.getItem("token")){
+      navigate('/contabo', {replace:true})
+    }
     getDomains();
-  }, []);
+  }, [navigate]);
   
   const [credentials, setCredentials] = useState({
     email: "",
@@ -82,19 +85,18 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    context.setIsLoading(true);
+    contextValue.setIsLoading(true);
     const data = await login(credentials.email, credentials.password, credentials.domain)
-    context.setIsLoading(false);
+    contextValue.setIsLoading(false);
     console.log(data)
     if (data.status) {
-      // console.log(data.response.token);
-      if(location.state?.form){
+      contextValue.setIsLoggedIn(true);
+      if(location.state?.from){
         localStorage.setItem("token", data.response.token);
-        navigate(location.state.form)
+        navigate(location.state.from, { replace: true })
       }
-      // navigate('/contabo/instances')
     } else {
-      context.showToast("error", data.error);
+      contextValue.showToast("error", data.error);
     }
   };
 
@@ -122,6 +124,7 @@ const Login = () => {
             type="password"
             placeholder="Password"
             name="password"
+            autoComplete="on"
             onChange={onChange}
             required
           />
