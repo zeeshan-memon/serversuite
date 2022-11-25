@@ -2,10 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import context from "../../context/Context";
 import styled from "styled-components";
-import Actions from "./Actions";
-import { getInstaces } from "../../network/ApiAxios";
+import Actions from "./SnapshotActions";
+import { getSnapshots } from "../../network/ApiAxios";
+import { useParams } from "react-router-dom";
 import moment from "moment";
-
 const MainContainer = styled.div`
   height: 90%;
   width: 100%;
@@ -16,47 +16,38 @@ const Title = styled.h2`
   line-height: 0px;
 `;
 
-const Instances = () => {
+const Snapshots = () => {
   const contextValue = useContext(context);
+  const {osId} = useParams();
   const [data, setData] = useState([]);
   const [pageState, setPageState] = useState({size:10, page:1, totalCount:0, cursor:""});
   const [rowId, setRowId] = useState(null);
   const [cursor, setCursor] = useState({next:"", previous:""});
 
   useEffect(() => {
-    const getInstances = async () => {
+    const getSnapshotsCall = async () => {
       contextValue.setIsLoading(true);
-      const res = await getInstaces("vultr", {provider:"Vultr", "size":pageState.size, "page":pageState.cursor});
+      const res = await getSnapshots("vultr", {provider:"Vultr", "size":pageState.size, "page":pageState.cursor, os_id: osId});
       contextValue.setIsLoading(false);
       console.log(res)
       if (res.status) {
         setPageState(old=>({...old, totalCount:res.response.meta.total}))
         setCursor({next:res.response.meta.links.next, previous:res.response.meta.links.prev})
         // console.log(res.response.instances);
-        setData(res.response.instances);
+        setData(res.response.snapshots);
       } else {
         contextValue.showToast("error", res.error);
       }
     };
-    getInstances();
+    getSnapshotsCall();
     // eslint-disable-next-line
   }, [pageState.size, pageState.page]);
 
   const columns = [
-    { field: "id", headerName: "Instance ID", width: 300 },
-    { field: "label", headerName: "Name", minWidth:220 },
-    { field: "os_id", headerName: "Os Id", minWidth:80 },
-    {
-      field: "main_ip",
-      headerName: "IP",
-      width: 130,
-    },
-    { field: "region", headerName: "Region", width: 130 },
-    { field: "ram", headerName: "Ram", width: 80 },
-    { field: "vcpu_count", headerName: "Cpu Cores", width: 90 },
-    { field: "disk", headerName: "Disk Size", width: 100 },
-    { field: "power_status", headerName: "Status", width: 80 },
-    { field: "os", headerName: "OS Type", width: 180 },
+    { field: "id", headerName: "Snapshot ID", width: 300 },
+    { field: "os_id", headerName: "Os Id", minWidth:100 },
+    { field: "description", headerName: "Description", width: 160 },
+    { field: "status", headerName: "Status", width: 160 },
     {
       field: "date_created",
       headerName: "Created Date",
@@ -76,7 +67,7 @@ const Instances = () => {
 
   return (
     <MainContainer>
-      <Title>Instances</Title>
+      <Title>Snapshots</Title>
       {data && (
         <DataGrid
           rows={data}
@@ -103,4 +94,4 @@ const Instances = () => {
   );
 };
 
-export default Instances;
+export default Snapshots;

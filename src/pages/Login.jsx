@@ -93,6 +93,9 @@ const Login = () => {
       contextValue.setIsLoggedIn(true);
       if(location.state?.from){
         localStorage.setItem("token", data.response.token);
+        localStorage.setItem("domain", data.response.domain);
+        localStorage.setItem("email", data.response.email);
+        localStorage.setItem("userName", data.response.userName);
         navigate(location.state.from, { replace: true })
       }
     } else {

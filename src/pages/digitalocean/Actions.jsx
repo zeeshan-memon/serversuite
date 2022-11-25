@@ -6,6 +6,7 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { createSnapshot, startInstance, restartInstance, stopInstance } from "../../network/ApiAxios";
 import context from "../../context/Context";
+import { useNavigate } from "react-router-dom";
 
 const MainContaoiner = styled.div``;
 
@@ -32,6 +33,7 @@ const MenuIitem= styled.div`
 
 const Actions = ({ params, rowId, setRowId }) => {
   const contextValue = useContext(context);
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false)
   
   const createSnapshotCall = async ()=>{
@@ -87,7 +89,7 @@ const Actions = ({ params, rowId, setRowId }) => {
   }
 
   const getSnapshots = ()=>{
-    console.log("getSnapshots Called!!!")
+    navigate(`/digitalocean/snapshots/${params.row.id}`)
   }
   return (
     <MainContaoiner>
@@ -105,7 +107,7 @@ const Actions = ({ params, rowId, setRowId }) => {
         onOpen = {()=>setIsOpen(true)}
       >
         <Menu>
-          <MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, getSnapshots)}>View Snapshots</MenuIitem>
+          <MenuIitem onClick={getSnapshots}>View Snapshots</MenuIitem>
           <MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, createSnapshotCall)}>Create Snapshot</MenuIitem>
           <MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, startInstanceCall)}>Start</MenuIitem>
           <MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, restartInstanceCall)}> Restart</MenuIitem>

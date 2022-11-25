@@ -6,6 +6,8 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { createSnapshot, startInstance, restartInstance, stopInstance } from "../../network/ApiAxios";
 import context from "../../context/Context";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 const MainContaoiner = styled.div``;
 
@@ -32,11 +34,13 @@ const MenuIitem= styled.div`
 const Actions = ({ params, rowId, setRowId }) => {
   const contextValue = useContext(context);
   const [isOpen, setIsOpen] = useState(false)
+  const navigate = useNavigate();
   
   const createSnapshotCall = async ()=>{
     setIsOpen(false);
     contextValue.setIsLoading(true);
-    const res = await createSnapshot('vultr', {provider: "Vultr", instanceId: params.row.id, instanceName: params.row.lable})
+    const description = `${params.row.label}-${moment().format("MMDDYYYYhmmss")}`
+    const res = await createSnapshot('vultr', {provider: "Vultr", instanceId: params.row.id, description:description})
     console.log(res)
     contextValue.setIsLoading(false);
     if (res.status) {
@@ -86,8 +90,9 @@ const Actions = ({ params, rowId, setRowId }) => {
   }
 
   const getSnapshots = ()=>{
-    console.log("getSnapshots Called!!!")
+    navigate(`/vultr/snapshots/${params.row.os_id}`)
   }
+
   return (
     <MainContaoiner>
       {/* <ListIcon /> */}
@@ -104,7 +109,7 @@ const Actions = ({ params, rowId, setRowId }) => {
         onOpen = {()=>setIsOpen(true)}
       >
         <Menu>
-          <MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, getSnapshots)}>View Snapshots</MenuIitem>
+          <MenuIitem onClick={getSnapshots}>View Snapshots</MenuIitem>
           <MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, createSnapshotCall)}>Create Snapshot</MenuIitem>
           <MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, startInstanceCall)}>Start</MenuIitem>
           <MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, restartInstanceCall)}> Restart</MenuIitem>

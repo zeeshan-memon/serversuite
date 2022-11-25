@@ -14,6 +14,11 @@ import Loader from "./components/Loader";
 import Toast from "./components/Toast";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Redirect from "./pages/Redirect";
+import ContaboSnapshots from "./pages/contabo/Snapshots";
+import VulrtSnapshots from "./pages/vultr/Snapshots";
+import AlicloudSnapshots from "./pages/alicloud/Snapshots";
+import DegitalOceanSnapshots from "./pages/digitalocean/Snapshots";
+import AwsSnapshots from "./pages/aws/Snapshots";
 const MainContainer = styled.div`
   margin: 0;
   padding: 0;
@@ -39,10 +44,15 @@ const App = () => {
             <Route path="/login" element={<Login />} />
               <Route element={<ProtectedRoutes />}>
                 <Route path="/contabo" element={<ContaboInstances />} />
+                <Route path="/contabo/snapshots/:instanceId" element={<ContaboSnapshots />} />
                 <Route path="/aws" element={<AWS />} />
+                <Route path="/aws/snapshots/:name" element={<AwsSnapshots />} />
                 <Route path="/alicloud" element={<AliCloud />} />
+                <Route path="/alicloud/snapshots/:instanceId" element={<AlicloudSnapshots />} />
                 <Route path="/vultr" element={<Vultr />} />
+                <Route path="/vultr/snapshots/:osId" element={<VulrtSnapshots />} />
                 <Route path="/digitalocean" element={<DigitalOcean />} />
+                <Route path="/digitalocean/snapshots/:resourceId" element={<DegitalOceanSnapshots />} />
                 <Route path="*" element={<Redirect/>} />
               </Route>
             </Routes>

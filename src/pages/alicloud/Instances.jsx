@@ -4,6 +4,7 @@ import context from "../../context/Context";
 import styled from "styled-components";
 import Actions from "./Actions";
 import { getInstaces } from "../../network/ApiAxios";
+import moment from "moment/moment";
 
 const MainContainer = styled.div`
   height: 90%;
@@ -47,11 +48,13 @@ const Instances = () => {
       width: 130,
     },
     { field: "regionId", headerName: "Region", width: 130 },
-    // { field: "ramMb", headerName: "Ram", width: 80 },
-    // { field: "cpuCores", headerName: "Cpu Cores", width: 90 },
-    // { field: "diskMb", headerName: "Disk Size", width: 100 },
     { field: "status", headerName: "Status", width: 80 },
-    // { field: "osType", headerName: "OS Type", width: 90 },
+    {
+      field: "creationTime",
+      headerName: "Created Date",
+      width: 110,
+      valueFormatter: (params) => moment(params.value).format("MM-DD-YYYY"),
+    },
     {
       field: "acttions",
       headerName: "Actions",

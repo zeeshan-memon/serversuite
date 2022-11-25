@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Context from "./Context";
 import { toast } from "react-toastify";
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
-const LoadingState = (props) => {
+const State = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isToast, setIsToast] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,33 +29,43 @@ const LoadingState = (props) => {
   };
 
   const showConfirmAlert = (setIsOpen, apiCall) => {
-    setIsOpen(false);
+    if (setIsOpen) setIsOpen(false);
     confirmAlert({
-      title: 'Confirm to submit',
-      message: 'Are you sure to do this.',
+      title: "Confirm to submit",
+      message: "Are you sure to do this.",
       buttons: [
         {
-          style:{backgroundColor:"#00073D"},
-          label: 'Yes',
-          onClick: () => {apiCall()}
+          style: { backgroundColor: "#00073D" },
+          label: "Yes",
+          onClick: () => {
+            apiCall();
+          },
         },
         {
-          style:{backgroundColor:"#00073D"},
-          label: 'No',
-          onClick: () => {}
-        }
-      ]
+          style: { backgroundColor: "#00073D" },
+          label: "No",
+          onClick: () => {},
+        },
+      ],
     });
   };
- 
-  
+
   return (
     <Context.Provider
-      value={{ isLoading, setIsLoading, isToast, setIsToast, showToast, showConfirmAlert, isLoggedIn, setIsLoggedIn }}
+      value={{
+        isLoading,
+        setIsLoading,
+        isToast,
+        setIsToast,
+        showToast,
+        showConfirmAlert,
+        isLoggedIn,
+        setIsLoggedIn,
+      }}
     >
       {props.children}
     </Context.Provider>
   );
 };
 
-export default LoadingState;
+export default State;

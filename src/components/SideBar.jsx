@@ -36,14 +36,14 @@ const UserProfileWrapper = styled.div`
   padding-right: 5px;
 `;
 
-// const UserName = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   justify-items: center;
-//   color: #000000;
-//   font-size: 16px;
-//   padding-right: 3px;
-// `;
+const UserName = styled.div`
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  color: #000000;
+  font-size: 14px;
+  padding-right: 3px;
+`;
 
 const UserLogo = styled.div`
   display: flex;
@@ -162,7 +162,7 @@ const SideBar = ({ children }) => {
     <Wrapper>
         {isLoggedIn && <UserProfile>
         <UserProfileWrapper>
-          {/* <UserName>abc@gmail.com</UserName> */}
+          <UserName>{localStorage.getItem("userName")}</UserName>
           <UserLogo>
             <ProfileMenu/>
           </UserLogo>

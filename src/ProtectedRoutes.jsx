@@ -5,7 +5,7 @@ import context from "./context/Context";
 const useAuth = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(context);
   if (localStorage.getItem("token") && !isLoggedIn) setIsLoggedIn(true);
-    return localStorage.getItem("token");
+  return localStorage.getItem("token");
 };
 const ProtectedRoutes = () => {
   const isAuth = useAuth();

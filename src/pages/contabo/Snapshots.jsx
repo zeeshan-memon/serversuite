@@ -2,9 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import context from "../../context/Context";
 import styled from "styled-components";
-import Actions from "./Actions";
-import { getInstaces } from "../../network/ApiAxios";
-import moment from "moment";
+import Actions from "./SnapshotActions";
+import { getSnapshots } from "../../network/ApiAxios";
+import { useParams } from "react-router-dom";
+import moment from "moment/moment";
 
 const MainContainer = styled.div`
   height: 90%;
@@ -23,44 +24,34 @@ const Title = styled.h2`
   line-height: 0px;
 `;
 
-const Instances = () => {
+const Snapshots = () => {
   const contextValue = useContext(context);
   const [data, setData] = useState([]);
   const [pageState, setPageState] = useState({size:10, page:1, totalCount:0});
   const [rowId, setRowId] = useState(null);
-
+  let { instanceId } = useParams();
   useEffect(() => {
-    const getInstances = async () => {
+    const getSnapshotsCall = async () => {
       contextValue.setIsLoading(true);
-      const res = await getInstaces("contabo", {provider:"Contabo", "size":pageState.size, "page":pageState.page});
+      const res = await getSnapshots("contabo", {provider:"Contabo", "size":pageState.size, "page":pageState.page, instanceId:instanceId});
       contextValue.setIsLoading(false);
       if (res.status) {
-        setPageState(old=>({...old, totalCount:res.response._pagination.totalElements}))
+        setPageState(old=>({...old, totalCount:res.response.data.length}))
         console.log(res.response.data);
         setData(res.response.data);
       } else {
         contextValue.showToast("error", res.error);
       }
     };
-    getInstances();
+    getSnapshotsCall();
     // eslint-disable-next-line
   }, [pageState.size, pageState.page]);
 
   const columns = [
     { field: "instanceId", headerName: "Instance ID", width: 130 },
     { field: "name", headerName: "Name", width: 100 },
-    {
-      field: "ipConfig",
-      headerName: "IP",
-      width: 130,
-      valueFormatter: (params) => params.value.v4.ip,
-    },
-    { field: "region", headerName: "Region", width: 130 },
-    { field: "ramMb", headerName: "Ram", width: 80 },
-    { field: "cpuCores", headerName: "Cpu Cores", width: 90 },
-    { field: "diskMb", headerName: "Disk Size", width: 100 },
-    { field: "status", headerName: "Status", width: 80 },
-    { field: "osType", headerName: "OS Type", width: 90 },
+    { field: "snapshotId", headerName: "Snapshot ID", width: 150 },
+    { field: "description", headerName: "Description", width: 220 },
     {
       field: "createdDate",
       headerName: "Created Date",
@@ -81,7 +72,7 @@ const Instances = () => {
   return (
     <MainContainer>
       <Wrapper>
-          <Title>Instances</Title>
+          <Title>Snapshots</Title>
           
       </Wrapper>
       {data && (
@@ -89,7 +80,7 @@ const Instances = () => {
           rows={data}
           rowCount={pageState.totalCount}
           columns={columns}
-          getRowId={(row) => row.instanceId}
+          getRowId={(row) => row.snapshotId}
           rowsPerPageOptions={[10, 20, 30]}
           pageSize={pageState.size}
           onPageSizeChange={(newPageSize) =>setPageState(old=>({...old, size: newPageSize}))}
@@ -103,4 +94,5 @@ const Instances = () => {
   );
 };
 
-export default Instances;
+
+export default Snapshots;

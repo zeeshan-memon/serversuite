@@ -53,15 +53,32 @@ instance.interceptors.response.use(
     if (error.response) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
-      return error.response.data;
-    } else if (error.request) {
+      return {
+        status:false,
+        error: error.response.data
+      };
+    } else if (error.message === "Network Error") {
       // The request was made but no response was received
       // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
       // http.ClientRequest in node.js;
-      return error.request;
-    } else {
+      return {
+        status:false,
+        error:error.message
+      };
+    }else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js;
+      return {
+        status:false,
+        error:error.request
+      }; 
+    }  else {
       // Something happened in setting up the request that triggered an Error
-      return error.message;
+      return {
+        status:false,
+        error:error.message
+      };
     }
   }
 );
@@ -71,11 +88,13 @@ export const getDomain = async () => await instance.get("domain");
 export const login = async (email, password, domain) =>
   await instance.post("adlogin", { email, password, domain });
 
-export const logout = async (token) =>
-  await instance.post("logout", { token });
+export const logout = async (token) => await instance.post("logout", { token });
 
 export const getInstaces = async (path, body) =>
   await instance.post(`/${path}/listInstances`, body);
+
+export const getSnapshots = async (path, body) =>
+  await instance.post(`/${path}/listsnapshots`, body);
 
 export const createSnapshot = async (path, body) =>
   await instance.post(`/${path}/createsnapshot`, body);
@@ -88,3 +107,6 @@ export const restartInstance = async (path, body) =>
 
 export const stopInstance = async (path, body) =>
   await instance.post(`/${path}/shutdownInstance`, body);
+
+export const deleteSnapshot = async (path, body) =>
+  await instance.post(`/${path}/deleteSnapshot`, body);

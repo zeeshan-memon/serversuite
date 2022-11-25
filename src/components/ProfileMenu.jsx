@@ -51,7 +51,7 @@ const ProfileMenu = () => {
     <MainContaoiner>
     {/* <ListIcon /> */}
     <Popup
-       trigger={<AccountCircleRoundedIcon style={{"fontSize":"35px"}}/>}
+       trigger={<AccountCircleRoundedIcon style={{"fontSize":"30px"}}/>}
       position="bottom right"
       // on="hover"
       closeOnDocumentClick
