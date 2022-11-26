@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Outlet, Navigate, useLocation } from "react-router-dom";
-import context from "./context/Context";
+import context from "../context/Context";
 
 const useAuth = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(context);

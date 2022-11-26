@@ -12,7 +12,7 @@ import Login from "./pages/Login";
 import State from "./context/State";
 import Loader from "./components/Loader";
 import Toast from "./components/Toast";
-import ProtectedRoutes from "./ProtectedRoutes";
+import ProtectedRoutes from "./components/ProtectedRoutes";
 import Redirect from "./pages/Redirect";
 import ContaboSnapshots from "./pages/contabo/Snapshots";
 import VulrtSnapshots from "./pages/vultr/Snapshots";
