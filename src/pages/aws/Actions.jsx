@@ -94,6 +94,7 @@ const Actions = ({ params, rowId, setRowId }) => {
   const getSnapshots = ()=>{
     navigate(`/aws/snapshots/${params.row.name}`)
   }
+  const permissions =  JSON.parse(localStorage.getItem("permissions"));
   return (
     <MainContaoiner>
       {/* <ListIcon /> */}
@@ -110,11 +111,11 @@ const Actions = ({ params, rowId, setRowId }) => {
         onOpen = {()=>setIsOpen(true)}
       >
         <Menu>
-          <MenuIitem onClick={getSnapshots}>View Snapshots</MenuIitem>
-          <MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, createSnapshotCall)}>Create Snapshot</MenuIitem>
-          <MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, startInstanceCall)}>Start</MenuIitem>
-          <MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, restartInstanceCall)}> Restart</MenuIitem>
-          <MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, stopInstanceCall)}>Stop</MenuIitem>
+          {permissions.viewSnapshot && <MenuIitem onClick={getSnapshots}>View Snapshots</MenuIitem>}
+          {permissions.createSnapshot &&<MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, createSnapshotCall)}>Create Snapshot</MenuIitem>}
+          {permissions.startInstance &&<MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, startInstanceCall)}>Start</MenuIitem>}
+          {permissions.restartInstance &&<MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, restartInstanceCall)}> Restart</MenuIitem>}
+          {permissions.stopInstance &&<MenuIitem onClick={()=> contextValue.showConfirmAlert(setIsOpen, stopInstanceCall)}>Stop</MenuIitem>}
         </Menu>
       </Popup>
     </MainContaoiner>

@@ -14,9 +14,9 @@ const LoaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-color:rgba(0, 0,0, 0.2);  */
+  background-color:rgba(0, 0,0, 0.3); 
   /* transition: cubic-bezier(0.075, 0.82, 0.165, 1); */
-  left: 100px;
+  /* left: 100px; */
   height: 100%;
   width: 100%;
 `;

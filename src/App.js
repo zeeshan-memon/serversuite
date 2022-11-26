@@ -35,26 +35,29 @@ const MainContainer = styled.div`
 const App = () => {
   return (
     <State>
+       <Loader />
       <MainContainer>
-        <Loader />
         <Toast />
         <Router>
           <SideBar>
             <Routes>
             <Route path="/login" element={<Login />} />
+            <Route element={<ProtectedRoutes allowPermission={"viewSnapshot"}/>}>
+                <Route path="/contabo/snapshots/:instanceId" element={<ContaboSnapshots />} />
+                <Route path="/aws/snapshots/:name" element={<AwsSnapshots />} />
+                <Route path="/alicloud/snapshots/:instanceId" element={<AlicloudSnapshots />} />
+                <Route path="/vultr/snapshots/:osId" element={<VulrtSnapshots />} />
+                <Route path="/digitalocean/snapshots/:resourceId" element={<DegitalOceanSnapshots />} />
+              </Route>
               <Route element={<ProtectedRoutes />}>
                 <Route path="/contabo" element={<ContaboInstances />} />
-                <Route path="/contabo/snapshots/:instanceId" element={<ContaboSnapshots />} />
                 <Route path="/aws" element={<AWS />} />
-                <Route path="/aws/snapshots/:name" element={<AwsSnapshots />} />
                 <Route path="/alicloud" element={<AliCloud />} />
-                <Route path="/alicloud/snapshots/:instanceId" element={<AlicloudSnapshots />} />
                 <Route path="/vultr" element={<Vultr />} />
-                <Route path="/vultr/snapshots/:osId" element={<VulrtSnapshots />} />
                 <Route path="/digitalocean" element={<DigitalOcean />} />
-                <Route path="/digitalocean/snapshots/:resourceId" element={<DegitalOceanSnapshots />} />
                 <Route path="*" element={<Redirect/>} />
               </Route>
+        
             </Routes>
           </SideBar>
         </Router>

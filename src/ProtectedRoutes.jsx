@@ -7,14 +7,24 @@ const useAuth = () => {
   if (localStorage.getItem("token") && !isLoggedIn) setIsLoggedIn(true);
   return localStorage.getItem("token");
 };
-const ProtectedRoutes = () => {
+
+const ProtectedRoutes = ({allowPermission}) => {
   const isAuth = useAuth();
   const location = useLocation();
-  return isAuth ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/login" replace state={{ from: location }} />
-  );
-};
+  const permissions =  JSON.parse(localStorage.getItem("permissions"));
+  // console.log("permissions", permissions["viewSnapshots"])
+  console.log(permissions)
+  // console.log("allowPermission", allowPermission)
+  
+    console.log("permissions", permissions)
+    return isAuth && permissions[allowPermission] ? (
+      <Outlet />
+    ) : isAuth ? (
+      <Outlet />
+    ) : (
+      <Navigate to="/login" replace state={{ from: location }} />
+    );
+  }
+
 
 export default ProtectedRoutes;

@@ -21,7 +21,6 @@ const Snapshots = () => {
   const contextValue = useContext(context);
   const [data, setData] = useState([]);
   const [pageState, setPageState] = useState({size:10, page:1, totalCount:0, cursor:""});
-  const [rowId, setRowId] = useState(null);
   const {name} = useParams();
   // const [cursor, setCursor] = useState({next:"", previous:""});
 
@@ -77,16 +76,19 @@ const Snapshots = () => {
       width: 110,
       valueFormatter: (params) => moment(params.value).format("MM-DD-YYYY"),
     },
-    {
-      field: "acttions",
-      headerName: "Actions",
-      width: 80,
-      type: "actions",
-      renderCell: (params) => (
-        <Actions {...{ params, rowId, setRowId, provider: "aws" }} />
-      ),
-    },
   ];
+
+  const permissions =  JSON.parse(localStorage.getItem("permissions"));
+  if(permissions["deleteSnapshot"])
+      columns.push({
+        field: "acttions",
+        headerName: "Actions",
+        width: 80,
+        type: "actions",
+        renderCell: (params) => (
+          <Actions {...{ params}} />
+        ),
+      });
 
   return (
     <MainContainer>

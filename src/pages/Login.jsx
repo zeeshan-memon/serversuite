@@ -96,7 +96,8 @@ const Login = () => {
         localStorage.setItem("domain", data.response.domain);
         localStorage.setItem("email", data.response.email);
         localStorage.setItem("userName", data.response.userName);
-        navigate(location.state.from, { replace: true })
+        localStorage.setItem("permissions", JSON.stringify(data.response.permissions));
+        navigate(location.state.from, { replace: true})
       }
     } else {
       contextValue.showToast("error", data.error);
