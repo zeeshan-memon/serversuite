@@ -35,7 +35,7 @@ const decryptData = (data) => {
 };
 
 const instance = axios.create({
-  baseURL: "http://localhost:5000/api/v1/",
+  baseURL: process.env.REACT_APP_BASE_URL,
 });
 
 instance.interceptors.request.use(async (config) => {
