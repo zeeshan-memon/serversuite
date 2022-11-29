@@ -43,7 +43,7 @@ const Snapshots = () => {
 
   const columns = [
     { field: "id", headerName: "Snapshot ID", width: 130 },
-    { field: "name", headerName: "Name", width: 250},
+    { field: "name", headerName: "Name", width: 350},
     { field: "resource_id", headerName: "Instance ID", width: 180 },
     {
       field: "created_at",
