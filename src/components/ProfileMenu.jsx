@@ -64,7 +64,7 @@ const ProfileMenu = () => {
     >
       <Menu>
         <MenuIitem onClick={()=> {setIsOpen(false)}}>Switch Provider User</MenuIitem>
-        <MenuIitem onClick={logoutCall}>LogOut</MenuIitem>
+        <MenuIitem onClick={()=>contextValue.showConfirmAlert(setIsOpen, logoutCall)}>LogOut</MenuIitem>
       </Menu>
     </Popup>
   </MainContaoiner>
