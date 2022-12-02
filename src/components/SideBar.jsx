@@ -41,8 +41,8 @@ const UserName = styled.div`
   justify-content: center;
   justify-items: center;
   color: #000000;
-  font-size: 14px;
-  padding-right: 3px;
+  font-size: 15px;
+  padding-right: 2px;
 `;
 
 const UserLogo = styled.div`

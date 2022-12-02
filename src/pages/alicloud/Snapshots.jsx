@@ -1,21 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { DataGrid } from "@mui/x-data-grid";
 import context from "../../context/Context";
-import styled from "styled-components";
 import Actions from "./SnapshotActions";
 import { getSnapshots } from "../../network/ApiAxios";
 import moment from "moment/moment";
 import { useParams } from "react-router-dom";
-
-const MainContainer = styled.div`
-  height: 90%;
-  width: 100%;
-`;
-const Title = styled.h2`
-  padding-left: 10px;
-  padding-bottom: 5px;
-  line-height: 0px;
-`;
+import Grid from "../../components/Grid";
 
 const Snapshots = () => {
   const contextValue = useContext(context);
@@ -67,24 +56,7 @@ const Snapshots = () => {
       });
 
   return (
-    <MainContainer>
-      <Title>Snapshots</Title>
-      {data && (
-        <DataGrid
-          rows={data}
-          rowCount={pageState.totalCount}
-          columns={columns}
-          getRowId={(row) => row.snapshotId}
-          rowsPerPageOptions={[10, 20, 30]}
-          pageSize={pageState.size}
-          onPageSizeChange={(newPageSize) =>setPageState(old=>({...old, size: newPageSize}))}
-          page={pageState.page - 1}
-          onPageChange={(newPage) => setPageState(old=>({...old, page:newPage + 1}))}
-          pagination
-          paginationMode="server"
-        />
-      )}
-    </MainContainer>
+  <Grid data={data} columns={columns} title={"Snapshots"} rowId={"snapshotId"} paginationMode={"server"} pageState={pageState} setPageState={setPageState}  />
   );
 };
 
