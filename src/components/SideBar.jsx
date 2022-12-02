@@ -103,12 +103,12 @@ const NavLinkContainer = styled(NavLink)`
   white-space: nowrap;
   font-size: 15px;
   &:hover {
-    border-right: 4px solid white;
-    transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    border-right: 4px solid #bebec5eb;
+    transition: 0.1s cubic-bezier(0.6, -0.28, 0.735, 0.045);
     background-color: rgb(45, 51, 89);
   }
   &.active {
-    border-right: 4px solid white;
+    border-right: 4px solid #e2e2e6e1;
     background-color: rgb(45, 51, 89);
   }
 `;
