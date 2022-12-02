@@ -182,6 +182,7 @@ const SideBar = ({ children }) => {
         >
           <div>
             <TopSection>
+              <AnimatePresence>
               {isOpen && (
                 <Logo
                   variants={showAnimation}
@@ -192,6 +193,7 @@ const SideBar = ({ children }) => {
                   ServerManagementSuit
                 </Logo>
               )}
+              </AnimatePresence>
               <Bars>
                 <FaBars onClick={toggle} />
               </Bars>
