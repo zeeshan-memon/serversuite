@@ -68,9 +68,27 @@ const Section = styled.section`
   color: white;
 `;
 
-const LinkIcon = styled.div``;
+const Wrt = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+`;
 
-const LinkText = styled(motion.div)``;
+const LinkIcon = styled.img`
+width: 25px;
+height: 23px; 
+/* border: 1px solid #ddd; */
+border-radius: 3px;
+/* background-size: contain; */
+/* object-fit: cover; */
+object-position: center;
+/* image-rendering: auto; */
+
+`;
+
+const LinkText = styled(motion.div)`
+padding-left: 10px;
+`;
 
 const TopSection = styled.div`
   display: flex;
@@ -136,6 +154,8 @@ const NavLinkContainer = styled(NavLink)`
 //   }
 // `;
 
+
+
 const showAnimation = {
   hidden: {
     with: 0,
@@ -172,7 +192,7 @@ const SideBar = ({ children }) => {
       <MainContainer>
         <MotionDiv
           animate={{
-            width: isOpen ? "200px" : "40px",
+            width: isOpen ? "200px" : "50px",
             transition: {
               duration: 0.5,
               type: "spring",
@@ -214,7 +234,9 @@ const SideBar = ({ children }) => {
 
                 return (
                   <NavLinkContainer to={route.path} key={index}>
-                    <LinkIcon>{route.icon}</LinkIcon>
+                    <Wrt>    
+                      {/* <div>{route.icon}</div> */}
+                    <LinkIcon src={route.logo}/>
                     <AnimatePresence>
                       {isOpen && (
                         <LinkText
@@ -227,6 +249,7 @@ const SideBar = ({ children }) => {
                         </LinkText>
                       )}
                     </AnimatePresence>
+                    </Wrt>
                   </NavLinkContainer>
                 );
               })}
