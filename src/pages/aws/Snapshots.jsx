@@ -37,6 +37,7 @@ const Snapshots = () => {
         //       state:row.state.name    
         //   })
         // })
+        setPageState(old=>({...old, totalCount: res.response.instanceSnapshots.length}))
         setData(res.response.instanceSnapshots);
       } else {
         contextValue.showToast("error", res.error);

@@ -38,6 +38,7 @@ const Instances = () => {
               createdAt:row.state.createdAt    
           })
         })
+        setPageState(old=>({...old, totalCount: data.length}))
         setData(data);
       } else {
         contextValue.showToast("error", res.error);
@@ -79,7 +80,7 @@ const Instances = () => {
   ];
 
   return (
-    <Grid data={data} columns={columns} title={"Instances"} rowId={"instanceId"} paginationMode={"client"} pageState={pageState} setPageState={setPageState}  />
+    <Grid data={data} columns={columns} title={"Instances"} rowId={"arn"} paginationMode={"client"} pageState={pageState} setPageState={setPageState}  />
   );
 };
 
