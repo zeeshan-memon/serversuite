@@ -16,14 +16,28 @@ const ProtectedRoutes = ({allowPermission}) => {
   console.log(permissions)
   // console.log("allowPermission", allowPermission)
   
-    console.log("permissions", permissions)
-    return isAuth && permissions[allowPermission] ? (
-      <Outlet />
-    ) : isAuth ? (
-      <Outlet />
-    ) : (
-      <Navigate to="/login" replace state={{ from: location }} />
-    );
+    // console.log("permissions", permissions[allowPermission])
+    // return isAuth && permissions[allowPermission] ? (
+    //   <Outlet />
+    // ) : isAuth ? (
+    //   <Outlet />
+    // ) : (
+    //   <Navigate to="/login" replace state={{ from: location }} />
+    // );
+
+    if(allowPermission){
+      return isAuth && permissions && permissions[allowPermission] ? (
+        <Outlet />
+      ) : (
+        <Navigate to="/" replace state={{ from: location }} />
+      );
+    }else{
+      return  isAuth ? (
+          <Outlet />
+        ) : (
+          <Navigate to="/login" replace state={{ from: location }} />
+        );
+    }
   }
 
 

@@ -178,9 +178,11 @@ const SideBar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
     const {isLoggedIn} = useContext(context)
+    
   return (
     <Wrapper>
-        {isLoggedIn && <UserProfile>
+        {isLoggedIn &&
+         <UserProfile>
         <UserProfileWrapper>
           <UserName>{localStorage.getItem("userName")}</UserName>
           <UserLogo>
@@ -188,8 +190,10 @@ const SideBar = ({ children }) => {
           </UserLogo>
         </UserProfileWrapper>
       </UserProfile>
-        }
+}
+
       <MainContainer>
+      {isLoggedIn &&
         <MotionDiv
           animate={{
             width: isOpen ? "200px" : "50px",
@@ -259,8 +263,10 @@ const SideBar = ({ children }) => {
             <LogOutButton>LogOut</LogOutButton>
           </LogOut> */}
         </MotionDiv>
+}
         <Main>{children}</Main>
       </MainContainer>
+    
     </Wrapper>
   );
 };

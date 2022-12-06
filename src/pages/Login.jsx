@@ -11,6 +11,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: -10px;
 `;
 
 const Wraper = styled.div`
@@ -65,9 +66,13 @@ const Login = () => {
   const contextValue = useContext(context);
      const navigate =useNavigate();
      const location = useLocation()
+     const [isShow, setIsShow] = useState(false)
   useEffect(() => {
    if(localStorage.getItem("token")){
+    //  setIsShow(true);
       navigate('/contabo', {replace:true})
+    }else{
+      setIsShow(true);
     }
     getDomains();
   }, [navigate]);
@@ -112,7 +117,9 @@ const Login = () => {
   };
 
   return (
+    
     <Container>
+      {isShow &&
       <Wraper>
         <Title>SIGN IN</Title>
         <Form onSubmit={submitHandler}>
@@ -151,6 +158,7 @@ const Login = () => {
           <Button onSubmit={submitHandler}>Login</Button>
         </Form>
       </Wraper>
+      }
     </Container>
   );
 };
